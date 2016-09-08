@@ -5,6 +5,10 @@
  */
 package de.veiron.launcher;
 
+import de.veiron.launcher.utils.RegexUtilities;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Peter Eltzschig
@@ -34,15 +38,22 @@ public class Launcher extends javax.swing.JFrame {
         l_email = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        l_error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Veiron Launcher");
+        setName("frame_launcher"); // NOI18N
         setResizable(false);
 
         tb_email.setName("tb_email"); // NOI18N
 
         b_login.setText("Login");
         b_login.setActionCommand("b_login");
+        b_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b_loginActionPerformed(evt);
+            }
+        });
 
         l_password.setText("Passwort");
 
@@ -54,6 +65,8 @@ public class Launcher extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jTextArea1.setText("Veiron - Changelog");
         jScrollPane1.setViewportView(jTextArea1);
+
+        l_error.setText("Error");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,12 +85,18 @@ public class Launcher extends javax.swing.JFrame {
                 .addComponent(b_login, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jScrollPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(l_error)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(l_error)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -93,6 +112,30 @@ public class Launcher extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void b_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_loginActionPerformed
+        
+        String email = tb_email.getText();
+        String password = tb_password.getText();
+        
+        if(RegexUtilities.validateEmail(email) == true){
+            JDialog ausgabe = new JDialog();
+            ausgabe.setTitle("Debug");
+            ausgabe.setSize(800,200);
+            ausgabe.setModal(true);
+            ausgabe.add(new JLabel("Die eingegebene Email lautet: " + email + " und das eingegebene Passwort lautet: " + password));
+            ausgabe.setVisible(true);
+        } else {
+            l_error.setText("Deine Eingabe entspricht nicht der Form einer E-Mail.");
+            //l_error.setAlignmentX(); Funktioniert noch nicht will das weiter nach links haben ~ Tom
+            l_error.repaint();
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_b_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,6 +156,7 @@ public class Launcher extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel l_email;
+    private javax.swing.JLabel l_error;
     private javax.swing.JLabel l_password;
     private javax.swing.JTextField tb_email;
     private javax.swing.JPasswordField tb_password;
