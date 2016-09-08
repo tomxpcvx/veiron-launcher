@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.veironlauncher;
+package de.veiron.launcher;
 
 import javax.swing.UIManager;
 
