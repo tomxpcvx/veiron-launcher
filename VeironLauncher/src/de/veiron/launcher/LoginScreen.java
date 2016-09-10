@@ -3,6 +3,7 @@ package de.veiron.launcher;
 import de.veiron.launcher.utils.Utilities;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,18 +34,18 @@ public class LoginScreen extends JFrame implements ActionListener {
         this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JEditorPane jep = new JEditorPane();
-        jep.setEditable(false);
+        JEditorPane browser = new JEditorPane();
+        browser.setEditable(false);
 
         try {
-            jep.setPage("https://veiron.tomtx.xyz/launcher/changelog");
+            browser.setPage("https://veiron.tomtx.xyz/launcher/changelog");
         }catch (IOException e) {
-            jep.setContentType("text/html");
-            jep.setText("<html>Could not load.<br>Please check your internet connection!<br><br>Try to restart the launcher.</html>");
+            browser.setContentType("text/html");
+            browser.setText("<html>Could not load.<br>Please check your internet connection!<br><br>Try to restart the launcher.</html>");
             b_login.setEnabled(false);
         }
 
-        JScrollPane browser = new JScrollPane(jep);
+
 
         // Register Action Listener for buttons
         b_login.addActionListener(this);
@@ -68,7 +69,7 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         b_login.setBounds(275,585,100,65);
 
-        browser.setBounds(-1,0,400,550);
+        browser.setBounds(-3,0,400,550);
 
         // Add all elements in JFrame
         this.add(l_email);
