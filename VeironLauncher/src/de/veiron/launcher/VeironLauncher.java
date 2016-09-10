@@ -8,8 +8,7 @@ package de.veiron.launcher;
 import javax.swing.UIManager;
 
 /**
- *
- * @author tompi
+ * Created by tompi on 08.09.2016.
  */
 public class VeironLauncher {
 
@@ -23,7 +22,7 @@ public class VeironLauncher {
         catch(Exception e) {
             
         }
-        new Launcher().setVisible(true);
+        new LoginScreen("Veiron Launcher").setVisible(true);
     }
     
 }
