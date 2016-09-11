@@ -56,8 +56,4 @@ public class Utilities {
         return (vl.OS.indexOf("mac") >= 0);
     }
 
-    public static boolean isLinux() {
-        return (vl.OS.indexOf("linux") >= 0);
-    }
-
 }
