@@ -12,53 +12,61 @@ public class DataFolder {
     private static String HOME = System.getProperty("user.home");
 
     public static void createDataFolder() {
-        if(isWindows()){
-            boolean success = (new File(HOME + "/AppData/Roaming/.veiron")).mkdirs();
-            if (!success) {
+        try {
+            if (isWindows()) {
+                boolean success = (new File(HOME + "/AppData/Roaming/.veiron")).mkdirs();
+                if (!success) {
 
-            }
-        } else if(isMac()) {
-            boolean success = (new File(HOME + "/Libary/Application Support/.veiron")).mkdirs();
-            if (!success) {
+                }
+            } else if (isMac()) {
+                boolean success = (new File(HOME + "/Libary/Application Support/.veiron")).mkdirs();
+                if (!success) {
 
-            }
-        } else if(isLinux()) {
-            boolean success = (new File(HOME + "/.veiron")).mkdirs();
-            if (!success) {
+                }
+            } else if (isLinux()) {
+                boolean success = (new File(HOME + "/.veiron")).mkdirs();
+                if (!success) {
 
+                }
             }
+        } catch (Exception e) {
+            System.err.println("ERROR: CANNOT READ OR WRITE TO LOG FILE");
         }
     }
 
     public static boolean getDataFolder() {
-        if(isWindows()){
-            File f = new File(HOME + "/AppData/Roaming/.veiron");
-            if(f.exists() && f.isDirectory()) {
-                return true;
+        try {
+            if (isWindows()) {
+                File f = new File(HOME + "/AppData/Roaming/.veiron");
+                if (f.exists() && f.isDirectory()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (isMac()) {
+                File f = new File(HOME + "/Libary/Application Support/.veiron");
+                if (f.exists() && f.isDirectory()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (isLinux()) {
+                File f = new File(HOME + "/.veiron");
+                if (f.exists() && f.isDirectory()) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                File f = new File(HOME + "/.veiron");
+                if (f.exists() && f.isDirectory()) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
-        } else if(isMac()) {
-            File f = new File(HOME + "/Libary/Application Support/.veiron");
-            if(f.exists() && f.isDirectory()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if(isLinux()) {
-            File f = new File(HOME + "/.veiron");
-            if(f.exists() && f.isDirectory()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            File f = new File(HOME + "/.veiron");
-            if(f.exists() && f.isDirectory()) {
-                return true;
-            } else {
-                return false;
-            }
+        } catch (Exception e) {
+            System.err.println("ERROR: CANNOT READ OR WRITE TO LOG FILE");
         }
     }
 
