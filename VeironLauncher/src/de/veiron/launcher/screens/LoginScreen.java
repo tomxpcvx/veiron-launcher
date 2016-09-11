@@ -12,10 +12,10 @@ import java.io.IOException;
  */
 public class LoginScreen extends JFrame implements ActionListener {
 
-    JButton b_login;
+    static JButton b_login;
     JTextField tb_email;
     JPasswordField pf_password;
-    JLabel l_email, l_password, l_error;
+    JLabel l_email, l_password, l_alert;
 
     public LoginScreen() {
         super("Veiron Launcher");
@@ -44,10 +44,6 @@ public class LoginScreen extends JFrame implements ActionListener {
         }
 
 
-
-        // Register Action Listener for buttons
-        b_login.addActionListener(this);
-
         // Preferences for elements
         Utilities.registerJLabelLink(l_registerLink, "https://veiron.tomtx.xyz/register", "Jetzt registrieren!");
 
@@ -68,6 +64,27 @@ public class LoginScreen extends JFrame implements ActionListener {
         b_login.setBounds(275,585,100,65);
 
         browser.setBounds(-3,0,400,550);
+
+        // Register Action Listener for buttons
+        b_login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(1);
+                if(Utilities.validateEmail(tb_email.getText())){
+                    if(!pf_password.getText().isEmpty()){
+
+                    } else {
+                        l_alert.setText("Du musst ein Passwort angeben!");
+                        l_alert.setBounds(80,558,350,20);
+                        l_alert.repaint();
+                    }
+                } else {
+                    l_alert.setText("Dies ist keine gültige E-Mail!");
+                    l_alert.setBounds(100,558,350,20);
+                    l_alert.repaint();
+                }
+            }
+        });
 
         // Add all elements in JFrame
         this.add(l_email);
