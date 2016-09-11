@@ -17,9 +17,8 @@ public class ApplicationIcon {
 
     public static void loadApplicationIcon(JFrame lf) {
 
-
-
                 if (u.isWindows()) {
+                    System.out.println(vl.VEIRON_APPICON_WINDOWS);
                     ImageIcon img = new ImageIcon(vl.VEIRON_APPICON_WINDOWS);
                     lf.setIconImage(img.getImage());
                 } else if (u.isMac()) {
@@ -29,8 +28,6 @@ public class ApplicationIcon {
                     ImageIcon img = new ImageIcon(vl.VEIRON_APPICON_LINUX);
                     lf.setIconImage(img.getImage());
                 }
-
-
     }
 
     public static boolean existApplicationIcon() {

@@ -23,7 +23,7 @@ public class VeironLauncher {
     public static final String VEIRON_MAC = VeironLauncher.USER_HOME + "/Libary/Application Support/.veiron";
     public static final String VEIRON_LINUX = VeironLauncher.USER_HOME + "/.veiron";
 
-    public static final String VEIRON_APPICON_WINDOWS = VEIRON_WINDOWS + "/applicationIcon.png";
+    public static final String VEIRON_APPICON_WINDOWS = VEIRON_WINDOWS + "/assets/applicationIcon.png";
     public static final String VEIRON_APPICON_MAC = VEIRON_MAC + "/assets/applicationIcon.png";
     public static final String VEIRON_APPICON_LINUX = VEIRON_LINUX + "/assets/applicationIcon.png";
 
