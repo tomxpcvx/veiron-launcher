@@ -1,10 +1,8 @@
-package de.veiron.launcher;
+package de.veiron.launcher.screens;
 
 import de.veiron.launcher.utils.Utilities;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -19,8 +17,8 @@ public class LoginScreen extends JFrame implements ActionListener {
     JPasswordField pf_password;
     JLabel l_email, l_password, l_error;
 
-    public LoginScreen(String name) {
-        super(name);
+    public LoginScreen() {
+        super("Veiron Launcher");
         JButton b_login = new JButton("Login");
         JTextField tb_email = new JTextField();
         JPasswordField pf_password = new JPasswordField();
@@ -51,7 +49,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         b_login.addActionListener(this);
 
         // Preferences for elements
-        Utilities.goToWebsite(l_registerLink, "https://veiron.tomtx.xyz/register", "Jetzt registrieren!");
+        Utilities.registerJLabelLink(l_registerLink, "https://veiron.tomtx.xyz/register", "Jetzt registrieren!");
 
         l_register.setFont(l_register.getFont().deriveFont(14.0f));
         l_registerLink.setFont(l_registerLink.getFont().deriveFont(14.0f));

@@ -5,6 +5,8 @@
  */
 package de.veiron.launcher.utils;
 
+import de.veiron.launcher.VeironLauncher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -20,6 +22,8 @@ import java.util.regex.Pattern;
  * @author tompi
  */
 public class Utilities {
+
+    private static VeironLauncher vl = new VeironLauncher();
     
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
     Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -29,7 +33,7 @@ public class Utilities {
         return matcher.find();
     }
 
-    public static void goToWebsite(JLabel website, final String url, String text) {
+    public static void registerJLabelLink(JLabel website, final String url, String text) {
         website.setText("<html><a href=\"\">" + text + "</a></html>");
         website.setCursor(new Cursor(Cursor.HAND_CURSOR));
         website.addMouseListener(new MouseAdapter() {
@@ -43,4 +47,17 @@ public class Utilities {
             }
         });
     }
+
+    public static boolean isWindows() {
+        return (vl.OS.indexOf("win") >= 0);
+    }
+
+    public static boolean isMac() {
+        return (vl.OS.indexOf("mac") >= 0);
+    }
+
+    public static boolean isLinux() {
+        return (vl.OS.indexOf("linux") >= 0);
+    }
+
 }
