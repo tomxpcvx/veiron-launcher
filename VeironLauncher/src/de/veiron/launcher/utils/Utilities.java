@@ -29,7 +29,7 @@ public class Utilities {
         return matcher.find();
     }
 
-    public static void goToWebsite(JLabel website, final String url, String text) {
+    public static void registerJLabelLink(JLabel website, final String url, String text) {
         website.setText("<html><a href=\"\">" + text + "</a></html>");
         website.setCursor(new Cursor(Cursor.HAND_CURSOR));
         website.addMouseListener(new MouseAdapter() {

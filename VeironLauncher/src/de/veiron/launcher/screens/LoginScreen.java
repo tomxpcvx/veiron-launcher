@@ -1,4 +1,4 @@
-package de.veiron.launcher;
+package de.veiron.launcher.screens;
 
 import de.veiron.launcher.utils.Utilities;
 
@@ -51,7 +51,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         b_login.addActionListener(this);
 
         // Preferences for elements
-        Utilities.goToWebsite(l_registerLink, "https://veiron.tomtx.xyz/register", "Jetzt registrieren!");
+        Utilities.registerJLabelLink(l_registerLink, "https://veiron.tomtx.xyz/register", "Jetzt registrieren!");
 
         l_register.setFont(l_register.getFont().deriveFont(14.0f));
         l_registerLink.setFont(l_registerLink.getFont().deriveFont(14.0f));

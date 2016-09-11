@@ -5,6 +5,9 @@
  */
 package de.veiron.launcher;
 
+import de.veiron.launcher.screens.LoginScreen;
+import de.veiron.launcher.utils.DataFolder;
+
 import javax.swing.UIManager;
 
 /**
@@ -17,7 +20,10 @@ public class VeironLauncher {
      */
     public static void main(String[] args) {
         try {
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            if(DataFolder.getDataFolder() == false) {
+                DataFolder.createDataFolder();
+            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
         catch(Exception e) {
             
