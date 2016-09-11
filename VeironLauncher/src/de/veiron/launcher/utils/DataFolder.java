@@ -1,6 +1,7 @@
 package de.veiron.launcher.utils;
 
-import javax.swing.*;
+import de.veiron.launcher.VeironLauncher;
+
 import java.io.File;
 
 /**
@@ -8,23 +9,25 @@ import java.io.File;
  */
 public class DataFolder {
 
-    private static String OS = System.getProperty("os.name").toLowerCase();
-    private static String HOME = System.getProperty("user.home");
+    private static VeironLauncher vl = new VeironLauncher();
+    private static Utilities u = new Utilities();
+
+
 
     public static void createDataFolder() {
         try {
-            if (isWindows()) {
-                boolean success = (new File(HOME + "/AppData/Roaming/.veiron")).mkdirs();
+            if (u.isWindows()) {
+                boolean success = (new File(vl.VEIRON_WINDOWS)).mkdirs();
                 if (!success) {
 
                 }
-            } else if (isMac()) {
-                boolean success = (new File(HOME + "/Libary/Application Support/.veiron")).mkdirs();
+            } else if (u.isMac()) {
+                boolean success = (new File(vl.VEIRON_MAC)).mkdirs();
                 if (!success) {
 
                 }
-            } else if (isLinux()) {
-                boolean success = (new File(HOME + "/.veiron")).mkdirs();
+            } else {
+                boolean success = (new File(vl.VEIRON_LINUX)).mkdirs();
                 if (!success) {
 
                 }
@@ -34,31 +37,24 @@ public class DataFolder {
         }
     }
 
-    public static boolean getDataFolder() {
+    public static boolean existDataFolder() {
         try {
-            if (isWindows()) {
-                File f = new File(HOME + "/AppData/Roaming/.veiron");
+            if (u.isWindows()) {
+                File f = new File(vl.VEIRON_WINDOWS);
                 if (f.exists() && f.isDirectory()) {
                     return true;
                 } else {
                     return false;
                 }
-            } else if (isMac()) {
-                File f = new File(HOME + "/Libary/Application Support/.veiron");
-                if (f.exists() && f.isDirectory()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else if (isLinux()) {
-                File f = new File(HOME + "/.veiron");
+            } else if (u.isMac()) {
+                File f = new File(vl.VEIRON_MAC);
                 if (f.exists() && f.isDirectory()) {
                     return true;
                 } else {
                     return false;
                 }
             } else {
-                File f = new File(HOME + "/.veiron");
+                File f = new File(vl.VEIRON_LINUX);
                 if (f.exists() && f.isDirectory()) {
                     return true;
                 } else {
@@ -68,18 +64,6 @@ public class DataFolder {
         } catch (Exception e) {
             System.err.println("ERROR: CANNOT READ OR WRITE TO LOG FILE");
         }
+        return false;
     }
-
-    public static boolean isWindows() {
-        return (OS.indexOf("win") >= 0);
-    }
-
-    public static boolean isMac() {
-        return (OS.indexOf("mac") >= 0);
-    }
-
-    public static boolean isLinux() {
-        return (OS.indexOf("linux") >= 0);
-    }
-
 }
