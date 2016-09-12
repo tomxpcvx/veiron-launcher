@@ -2,6 +2,7 @@ package de.veiron.launcher.screens;
 
 import de.veiron.launcher.php.PHPHasUserPaid;
 import de.veiron.launcher.php.PHPLoginUser;
+import de.veiron.launcher.utils.Game;
 import de.veiron.launcher.utils.Utilities;
 
 import javax.swing.*;
@@ -76,9 +77,15 @@ public class LoginScreen extends JFrame implements ActionListener {
                     if(!pf_password.getText().isEmpty()){
                         if(PHPLoginUser.hasUserRegistered(tb_email.getText(), pf_password.getText())){
                             if(PHPHasUserPaid.hasUserPaid(tb_email.getText())) {
-                                l_alert.setText("Du hast das Spiel erworben!");
+                                l_alert.setText("Das Spiel wird gestartet!");
                                 l_alert.setBounds(90,558,350,20);
                                 l_alert.repaint();
+
+                                if(!Game.existGameData()){
+                                    Game.downloadGameData();
+                                }
+                                Game.startGame();
+
                             } else {
                                 l_alert.setText("Du musst das Spiel erwerben!");
                                 l_alert.setBounds(80,558,350,20);
