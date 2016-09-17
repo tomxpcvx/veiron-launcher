@@ -5,50 +5,58 @@
  */
 package de.veiron.launcher;
 
+import de.veiron.launcher.manager.FolderManager;
+import de.veiron.launcher.manager.LogManager;
 import de.veiron.launcher.screens.LoginScreen;
-import de.veiron.launcher.utils.ApplicationIcon;
-import de.veiron.launcher.utils.DataFolder;
+import de.veiron.launcher.manager.IconManager;
+import de.veiron.launcher.manager.SystemManager;
 
 import javax.swing.*;
 
-/**
- * Created by tompi on 08.09.2016.
- */
+
 public class VeironLauncher {
 
-    public static final String OS = System.getProperty("os.name").toLowerCase();
-    public static final String USER_HOME = System.getProperty("user.home");
+    public final String USER_HOME = System.getProperty("user.home");
 
-    public static final String VEIRON_WINDOWS = VeironLauncher.USER_HOME + "/AppData/Roaming/.veiron";
-    public static final String VEIRON_MAC = VeironLauncher.USER_HOME + "/Libary/Application Support/.veiron";
-    public static final String VEIRON_LINUX = VeironLauncher.USER_HOME + "/.veiron";
+    public final String VEIRON_WINDOWS = USER_HOME + "/AppData/Roaming/.veiron";
+    public final String VEIRON_MAC = USER_HOME + "/Libary/Application Support/.veiron";
+    public final String VEIRON_OTHER = USER_HOME + "/.veiron";
 
-    public static final String VEIRON_APPICON_WINDOWS = VEIRON_WINDOWS + "/assets/applicationIcon.png";
-    public static final String VEIRON_APPICON_MAC = VEIRON_MAC + "/assets/applicationIcon.png";
-    public static final String VEIRON_APPICON_LINUX = VEIRON_LINUX + "/assets/applicationIcon.png";
+    public final String VEIRON_APPICON_WINDOWS = VEIRON_WINDOWS + "/assets/applicationIcon.png";
+    public final String VEIRON_APPICON_MAC = VEIRON_MAC + "/assets/applicationIcon.png";
+    public final String VEIRON_APPICON_OTHER = VEIRON_OTHER + "/assets/applicationIcon.png";
+
+    public SystemManager systemManager = new SystemManager();
+    public LogManager logManager = new LogManager();
 
     /**
      * @param args the command line arguments
      */
+
     public static void main(String[] args) {
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch(Exception e) {
-            System.err.println(e.getMessage());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         LoginScreen ls = new LoginScreen();
+        IconManager ai = new IconManager();
+        FolderManager fm = new FolderManager();
 
-        if(DataFolder.existDataFolder() == false) {
-            DataFolder.createDataFolder();
-        }
-        if(ApplicationIcon.existApplicationIcon() == false){
-            ApplicationIcon.downloadApplicationIcon();
-        }
-        ApplicationIcon.loadApplicationIcon(ls);
 
+        if(!fm.existSystemFolder()) fm.createSystemFolder();
+
+        if(!ai.existApplicationIcon()) ai.downloadApplicationIcon();
+
+        ai.loadApplicationIcon(ls);
         ls.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ls.setLocationRelativeTo(null);
         ls.setVisible(true);

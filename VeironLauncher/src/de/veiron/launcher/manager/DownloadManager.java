@@ -1,21 +1,19 @@
-package de.veiron.launcher.utils;
+package de.veiron.launcher.manager;
 
-/**
- * Created by tompi on 11.09.2016.
- */
+import de.veiron.launcher.VeironLauncher;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
 
-/**
- * A utility that downloads a file from a URL.
- * @author www.codejava.net
- *
- */
-public class UrlDownload {
+public class DownloadManager {
+
+    private VeironLauncher launcher;
+
     private static final int BUFFER_SIZE = 4096;
 
     /**
@@ -24,8 +22,7 @@ public class UrlDownload {
      * @param saveDir path of the directory to save the file
      * @throws IOException
      */
-    public static void downloadFile(String fileURL, String saveDir)
-            throws IOException {
+    public void downloadFile(String fileURL, String saveDir) throws IOException {
         URL url = new URL(fileURL);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         int responseCode = httpConn.getResponseCode();
@@ -71,9 +68,11 @@ public class UrlDownload {
             outputStream.close();
             inputStream.close();
 
-            System.out.println("File downloaded");
+            System.out.println("File '" + fileName + "' successful downloaded!");
+            //this.launcher.logManager.log(Level.INFO, "File '" + fileName + "' successful downloaded!");
         } else {
-            System.out.println("No file to download. Server replied HTTP code: " + responseCode);
+            System.out.println("No file to download. (" + fileURL + ") Server replied HTTP code: " + responseCode);
+            //this.launcher.logManager.log(Level.INFO, "No file to download. (" + fileURL + ") Server replied HTTP code: " + responseCode);
         }
         httpConn.disconnect();
     }
