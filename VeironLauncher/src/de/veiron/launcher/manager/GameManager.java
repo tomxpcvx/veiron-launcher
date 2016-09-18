@@ -5,9 +5,6 @@ import de.veiron.launcher.manager.DownloadManager;
 
 import java.io.File;
 
-/**
- * Created by tompi on 12.09.2016.
- */
 public class GameManager {
 
     VeironLauncher lauchner = new VeironLauncher();

@@ -1,7 +1,6 @@
 package de.veiron.launcher.manager;
 
 import de.veiron.launcher.VeironLauncher;
-import de.veiron.launcher.manager.DownloadManager;
 
 import javax.swing.*;
 import java.io.File;

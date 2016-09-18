@@ -1,27 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package de.veiron.launcher.manager;
 
-import de.veiron.launcher.VeironLauncher;
 
 import javax.swing.*;
+import javax.xml.bind.DatatypeConverter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-/**
- *
- * @author tompi
- */
 public class UtilManager {
 
     public void registerJLabelLink(JLabel website, final String url, String text) {
@@ -42,6 +39,36 @@ public class UtilManager {
         label.setText(message);
         label.setBounds(w, x, y, z);
         label.repaint();
+    }
+
+    public String getHashCodeForFile(File file) {
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(Files.readAllBytes(Paths.get(file.getPath())));
+            byte[] digest = md.digest();
+            String digestInHex = DatatypeConverter.printHexBinary(digest).toUpperCase();
+            System.out.println(digestInHex);
+            return digestInHex;
+        } catch (NoSuchAlgorithmException | IOException e) {
+            e.setStackTrace(e.getStackTrace());
+            return "";
+        }
+    }
+
+    public String getHashForString(String string) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+            md.update(string.getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] digest = md.digest();
+            String digestInHex = DatatypeConverter.printHexBinary(digest).toUpperCase();
+            System.out.println(digestInHex);
+            return digestInHex;
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.setStackTrace(e.getStackTrace());
+            return "";
+        }
     }
 
 

@@ -5,17 +5,16 @@
  */
 package de.veiron.launcher;
 
-import de.veiron.launcher.manager.FolderManager;
-import de.veiron.launcher.manager.LogManager;
+
+import de.veiron.launcher.manager.*;
 import de.veiron.launcher.screens.LoginScreen;
-import de.veiron.launcher.manager.IconManager;
-import de.veiron.launcher.manager.SystemManager;
+import de.veiron.launcher.screens.StartScreen;
 
 import javax.swing.*;
 
-
 public class VeironLauncher {
 
+    public final String VERSION = "a0.1";
     public final String USER_HOME = System.getProperty("user.home");
 
     public final String VEIRON_WINDOWS = USER_HOME + "/AppData/Roaming/.veiron";
@@ -37,29 +36,43 @@ public class VeironLauncher {
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         LoginScreen ls = new LoginScreen();
+        StartScreen ss = new StartScreen();
         IconManager ai = new IconManager();
         FolderManager fm = new FolderManager();
-
+        CredentialsManager cm = new CredentialsManager();
 
         if(!fm.existSystemFolder()) fm.createSystemFolder();
 
+
         if(!ai.existApplicationIcon()) ai.downloadApplicationIcon();
 
-        ai.loadApplicationIcon(ls);
-        ls.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ls.setLocationRelativeTo(null);
-        ls.setVisible(true);
+        if(!cm.existCredentialsFile()){
+                ai.loadApplicationIcon(ls);
+                ls.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                ls.setLocationRelativeTo(null);
+                ls.setVisible(true);
+        } else {
+
+            if(cm.getSessionHash().equals(RequestManager.getUserSessionHash(cm.getEmail()))){
+
+                ai.loadApplicationIcon(ss);
+                ss.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                ss.setLocationRelativeTo(null);
+                ss.setVisible(true);
+            } else {
+                System.out.println(RequestManager.getUserSessionHash(cm.getEmail()) + "////" + cm.getSessionHash());
+                ai.loadApplicationIcon(ls);
+                ls.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                ls.setLocationRelativeTo(null);
+                ls.setVisible(true);
+            }
+        }
+
     }
     
 }

@@ -1,10 +1,7 @@
 package de.veiron.launcher.screens;
 
-import de.veiron.launcher.manager.GameManager;
-import de.veiron.launcher.manager.LoginManager;
-import de.veiron.launcher.manager.UtilManager;
-import de.veiron.launcher.php.PHPHasUserPaid;
-import de.veiron.launcher.php.PHPLoginUser;
+import de.veiron.launcher.manager.*;
+import de.veiron.launcher.manager.RequestManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,8 +13,12 @@ public class LoginScreen extends JFrame implements ActionListener {
     LoginManager lm = new LoginManager();
     UtilManager um = new UtilManager();
     GameManager gm = new GameManager();
+    IconManager im = new IconManager();
+    CredentialsManager cm = new CredentialsManager();
+    StartScreen sc = new StartScreen();
 
     JButton b_login;
+    JFrame frame = this;
     JTextField tb_email;
     JPasswordField pf_password;
     JLabel l_email, l_password, l_alert;
@@ -26,13 +27,19 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         // All elements
         JButton b_login = new JButton("Login");
-        JTextField tb_email = new JTextField();
-        JPasswordField pf_password = new JPasswordField();
         JLabel l_email = new JLabel("E-Mail:");
         JLabel l_password = new JLabel("Passwort:");
         JLabel l_alert = new JLabel("Melde dich mit deinem Veiron-Konto an.");
         JLabel l_registerLink = new JLabel("");
         JLabel l_register = new JLabel("Du hast noch kein Konto?");
+
+        JTextField tb_email = new JTextField();
+        JPasswordField pf_password = new JPasswordField();
+
+        if (cm.existCredentialsFile()) {
+            tb_email.setText(cm.getEmail());
+            pf_password.setText(cm.getSessionHash());
+        }
 
         this.setLayout(null);
 
@@ -51,8 +58,12 @@ public class LoginScreen extends JFrame implements ActionListener {
         // Preferences for elements
         um.registerJLabelLink(l_registerLink, "https://veiron.tomtx.xyz/register", "Jetzt registrieren!");
 
-        //l_register.setFont(l_register.getFont().deriveFont(14.0f));
-        //l_registerLink.setFont(l_registerLink.getFont().deriveFont(14.0f));
+
+        l_alert.setFont(l_alert.getFont().deriveFont(14.0f));
+        l_email.setFont(l_email.getFont().deriveFont(14.0f));
+        b_login.setFont(b_login.getFont().deriveFont(14.0f));
+        l_register.setFont(l_register.getFont().deriveFont(14.0f));
+        l_registerLink.setFont(l_registerLink.getFont().deriveFont(14.0f));
 
 
         // Register locations of elements
@@ -73,14 +84,25 @@ public class LoginScreen extends JFrame implements ActionListener {
 
                 if (lm.validateEmail(tb_email.getText())) {
                     if (!pf_password.getText().isEmpty()) {
-                        if (PHPLoginUser.hasUserRegistered(tb_email.getText(), pf_password.getText())) {
-                            if (PHPHasUserPaid.hasUserPaid(tb_email.getText())) {
-                                um.changeJLabelMessage(l_alert, "Das Spiel wird gestartet!", 110, 555, 350, 20);
+                        if (RequestManager.hasUserRegistered(tb_email.getText(), pf_password.getText())) {
+                            if (RequestManager.hasUserPaid(tb_email.getText())) {
 
-                                if (!gm.existGameData()) {
+                                RequestManager.setUserSessionHash(tb_email.getText());
+
+                                if(!gm.existGameData()){
                                     gm.downloadGameData();
                                 }
-                                gm.startGame();
+
+                                if(!cm.existCredentialsFile()){
+                                    cm.createCredentialsFile();
+                                }
+
+                                cm.saveCredentialsToFile(tb_email.getText(), RequestManager.getUserSessionHash(tb_email.getText()));
+                                frame.setVisible(false);
+                                im.loadApplicationIcon(sc);
+                                sc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                                sc.setLocationRelativeTo(null);
+                                sc.setVisible(true);
 
                             } else {
                                 um.changeJLabelMessage(l_alert, "Du musst das Spiel erwerben!", 80, 555, 350, 20);
@@ -114,8 +136,8 @@ public class LoginScreen extends JFrame implements ActionListener {
         this.setResizable(false);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
 
     }
-
 }
