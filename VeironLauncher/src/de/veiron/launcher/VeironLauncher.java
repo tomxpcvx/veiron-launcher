@@ -40,18 +40,17 @@ public class VeironLauncher {
             e.printStackTrace();
         }
 
-        LoginScreen ls = new LoginScreen();
-        StartScreen ss = new StartScreen();
         IconManager ai = new IconManager();
         FolderManager fm = new FolderManager();
         CredentialsManager cm = new CredentialsManager();
 
         if(!fm.existSystemFolder()) fm.createSystemFolder();
 
-
         if(!ai.existApplicationIcon()) ai.downloadApplicationIcon();
 
         if(!cm.existCredentialsFile()){
+                LoginScreen ls = new LoginScreen();
+
                 ai.loadApplicationIcon(ls);
                 ls.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 ls.setLocationRelativeTo(null);
@@ -59,12 +58,15 @@ public class VeironLauncher {
         } else {
 
             if(cm.getSessionHash().equals(RequestManager.getUserSessionHash(cm.getEmail()))){
+                StartScreen ss = new StartScreen();
 
                 ai.loadApplicationIcon(ss);
                 ss.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 ss.setLocationRelativeTo(null);
                 ss.setVisible(true);
             } else {
+                LoginScreen ls = new LoginScreen();
+
                 System.out.println(RequestManager.getUserSessionHash(cm.getEmail()) + "////" + cm.getSessionHash());
                 ai.loadApplicationIcon(ls);
                 ls.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

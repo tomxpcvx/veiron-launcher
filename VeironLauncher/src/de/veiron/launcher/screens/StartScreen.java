@@ -3,6 +3,7 @@ package de.veiron.launcher.screens;
 import de.veiron.launcher.manager.CredentialsManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class StartScreen extends JFrame implements ActionListener {
 
         this.setLayout(null);
 
+
+
         JEditorPane browser = new JEditorPane();
         browser.setEditable(false);
 
@@ -34,13 +37,14 @@ public class StartScreen extends JFrame implements ActionListener {
         }
 
 
-
-        b_play.setFont(b_play.getFont().deriveFont(20.0f));
+        Font boldFont = new Font(b_play.getFont().getName(), Font.BOLD, 20);
+        b_play.setFont(boldFont);
         b_play.setEnabled(false);
+
         // Register locations of elements
-        l_alert.setBounds(140, 555, 350, 20);
-        b_play.setBounds(50, 585, 290, 65);
-        browser.setBounds(-3,0,400,550);
+        l_alert.setBounds(120, 460, 350, 20);
+        b_play.setBounds(50, 495, 290, 65);
+        browser.setBounds(-3,-3,400,455);
 
         // Register Action Listener for button
         b_play.addActionListener(new ActionListener() {
@@ -57,7 +61,7 @@ public class StartScreen extends JFrame implements ActionListener {
 
         // Set Preferences for JFrame
         this.setTitle("Veiron Launcher");
-        this.setSize(400, 715);
+        this.setSize(400, 626);
         this.setResizable(false);
     }
 

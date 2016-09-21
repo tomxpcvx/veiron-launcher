@@ -4,6 +4,7 @@ import de.veiron.launcher.manager.*;
 import de.veiron.launcher.manager.RequestManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class LoginScreen extends JFrame implements ActionListener {
     GameManager gm = new GameManager();
     IconManager im = new IconManager();
     CredentialsManager cm = new CredentialsManager();
-    StartScreen sc = new StartScreen();
+
 
     JButton b_login;
     JFrame frame = this;
@@ -59,23 +60,26 @@ public class LoginScreen extends JFrame implements ActionListener {
         um.registerJLabelLink(l_registerLink, "https://veiron.tomtx.xyz/register", "Jetzt registrieren!");
 
 
+        Font boldFont = new Font(b_login.getFont().getName(), Font.BOLD, 15);
+
         l_alert.setFont(l_alert.getFont().deriveFont(14.0f));
         l_email.setFont(l_email.getFont().deriveFont(14.0f));
-        b_login.setFont(b_login.getFont().deriveFont(14.0f));
+        l_password.setFont(l_password.getFont().deriveFont(14.0f));
+        b_login.setFont(boldFont);
         l_register.setFont(l_register.getFont().deriveFont(14.0f));
         l_registerLink.setFont(l_registerLink.getFont().deriveFont(14.0f));
 
 
         // Register locations of elements
-        l_email.setBounds(30, 590, 120, 20);
-        l_password.setBounds(10, 625, 120, 20);
-        l_alert.setBounds(60, 555, 350, 20);
-        l_registerLink.setBounds(250, 652, 250, 20);
-        l_register.setBounds(60, 652, 250, 20);
-        tb_email.setBounds(90, 585, 180, 30);
-        pf_password.setBounds(90, 620, 180, 30);
-        b_login.setBounds(275, 585, 100, 65);
-        browser.setBounds(-3,0,400,550);
+        l_email.setBounds(30, 490, 120, 20);
+        l_password.setBounds(10, 525, 120, 20);
+        l_alert.setBounds(60, 460, 350, 20);
+        l_registerLink.setBounds(250, 552, 250, 20);
+        l_register.setBounds(60, 552, 250, 20);
+        tb_email.setBounds(90, 485, 180, 30);
+        pf_password.setBounds(90, 520, 180, 30);
+        b_login.setBounds(275, 485, 100, 65);
+        browser.setBounds(-3,-3,400,455);
 
         // Register Action Listener for button
         b_login.addActionListener(new ActionListener() {
@@ -96,6 +100,8 @@ public class LoginScreen extends JFrame implements ActionListener {
                                 if(!cm.existCredentialsFile()){
                                     cm.createCredentialsFile();
                                 }
+
+                                StartScreen sc = new StartScreen();
 
                                 cm.saveCredentialsToFile(tb_email.getText(), RequestManager.getUserSessionHash(tb_email.getText()));
                                 frame.setVisible(false);
@@ -132,7 +138,7 @@ public class LoginScreen extends JFrame implements ActionListener {
 
         // Set Preferences for JFrame
         this.setTitle("Veiron Launcher");
-        this.setSize(400, 715);
+        this.setSize(400, 626);
         this.setResizable(false);
     }
 
