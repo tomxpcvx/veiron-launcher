@@ -3,7 +3,6 @@ package de.veiron.launcher.manager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.URL;
@@ -155,10 +154,10 @@ public class RequestManager {
 
     public static boolean hasUserPaid(String email) {
 
-        boolean accepted = false;
         JSONParser parser = new JSONParser();
 
         try {
+
             String url = "https://veiron.tomtx.xyz/api/get/UserPaidState.php";
             String charset = "UTF-8";
 
@@ -190,18 +189,18 @@ public class RequestManager {
 
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
 
-            accepted = (jsonObject.get("boughtGame").equals("true"));
+            return (jsonObject.get("boughtGame").equals("true"));
 
         }
         catch(Exception e){
-
+            e.printStackTrace();
+            return false;
         }
-        return accepted;
+
     }
 
     public static boolean hasUserRegistered(String email, String password) {
 
-        boolean accepted = false;
         JSONParser parser = new JSONParser();
 
         try {
@@ -236,13 +235,14 @@ public class RequestManager {
 
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
 
-            accepted = (jsonObject.get("isActive").equals("false"));
+            return (jsonObject.get("isActive").equals("false"));
 
         }
         catch(Exception e){
-
+            e.printStackTrace();
+            return false;
         }
-        return accepted;
+
     }
 
 }

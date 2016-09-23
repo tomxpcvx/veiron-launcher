@@ -14,8 +14,8 @@ public class IconManager {
 
     public void loadApplicationIcon(JFrame f) {
 
-        if (this.launcher.systemManager.systemIsWindows()) {
-            ImageIcon img = new ImageIcon(this.launcher.VEIRON_APPICON_WINDOWS);
+        if (launcher.systemManager.systemIsWindows()) {
+            ImageIcon img = new ImageIcon(launcher.VEIRON_APPICON_WINDOWS);
             f.setIconImage(img.getImage());
         } else if (launcher.systemManager.systemIsMac()) {
             ImageIcon img = new ImageIcon(launcher.VEIRON_APPICON_MAC);
@@ -39,6 +39,7 @@ public class IconManager {
                 return f.exists() && f.isDirectory();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println("ERROR: CANNOT READ OR WRITE TO LOG FILE");
         }
         return false;

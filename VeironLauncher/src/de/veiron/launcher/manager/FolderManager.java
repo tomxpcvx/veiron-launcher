@@ -3,7 +3,6 @@ package de.veiron.launcher.manager;
 import de.veiron.launcher.VeironLauncher;
 
 import java.io.File;
-import java.util.logging.Level;
 
 public class FolderManager {
 
@@ -29,6 +28,7 @@ public class FolderManager {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println("ERROR: Can't read or write to log file!");
             //launcher.logManager.log(Level.SEVERE, "Can't read or write to log file!");
         }
@@ -38,18 +38,17 @@ public class FolderManager {
         try {
             if (launcher.systemManager.systemIsWindows()) {
                 File f = new File(launcher.VEIRON_WINDOWS);
-                if (f.exists()) if (f.isDirectory()) return true;
-                return false;
+                return f.exists() && f.isDirectory();
+
             } else if (launcher.systemManager.systemIsMac()) {
                 File f = new File(launcher.VEIRON_MAC);
-                if (f.exists()) if (f.isDirectory()) return true;
-                return false;
+                return f.exists() && f.isDirectory();
             } else {
                 File f = new File(launcher.VEIRON_OTHER);
-                if (f.exists()) if (f.isDirectory()) return true;
-                return false;
+                return f.exists() && f.isDirectory();
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.err.println("ERROR: Can't read or write to log file!");
             //launcher.logManager.log(Level.SEVERE, "Can't read or write to log file!");
         }

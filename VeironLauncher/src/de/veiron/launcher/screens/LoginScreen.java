@@ -50,6 +50,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         try {
             browser.setPage("https://veiron.tomtx.xyz/assets/launcher/changelog.html");
         } catch (IOException e) {
+            e.printStackTrace();
             browser.setContentType("text/html");
             browser.setText("<html>Could not load.<br>Please check your internet connection!<br><br>Try to restart the launcher.</html>");
             b_login.setEnabled(false);

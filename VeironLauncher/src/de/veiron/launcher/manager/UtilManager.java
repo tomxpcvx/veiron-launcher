@@ -8,14 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,11 +23,11 @@ public class UtilManager {
         website.setCursor(new Cursor(Cursor.HAND_CURSOR));
         website.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent me) {
                 try {
                     Desktop.getDesktop().browse(new URI(url));
-                } catch (URISyntaxException | IOException ex) {
-                    //It looks like there's a problem
+                } catch (URISyntaxException | IOException e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -51,7 +48,7 @@ public class UtilManager {
             System.out.println(digestInHex);
             return digestInHex;
         } catch (NoSuchAlgorithmException | IOException e) {
-            e.setStackTrace(e.getStackTrace());
+            e.printStackTrace();
             return "";
         }
     }
@@ -66,7 +63,7 @@ public class UtilManager {
             System.out.println(digestInHex);
             return digestInHex;
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
-            e.setStackTrace(e.getStackTrace());
+            e.printStackTrace();
             return "";
         }
     }

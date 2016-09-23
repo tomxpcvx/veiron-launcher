@@ -1,7 +1,5 @@
 package de.veiron.launcher.manager;
 
-import de.veiron.launcher.VeironLauncher;
-
 public class SystemManager {
 
     public boolean systemIsWindows() {

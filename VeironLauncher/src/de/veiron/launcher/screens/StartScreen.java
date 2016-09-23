@@ -23,14 +23,13 @@ public class StartScreen extends JFrame implements ActionListener {
 
         this.setLayout(null);
 
-
-
         JEditorPane browser = new JEditorPane();
         browser.setEditable(false);
 
         try {
             browser.setPage("https://veiron.tomtx.xyz/assets/launcher/changelog");
         } catch (IOException e) {
+            e.printStackTrace();
             browser.setContentType("text/html");
             browser.setText("<html>Could not load.<br>Please check your internet connection!<br><br>Try to restart the launcher.</html>");
             b_play.setEnabled(false);
