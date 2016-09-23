@@ -102,9 +102,11 @@ public class LoginScreen extends JFrame implements ActionListener {
                                     cm.createCredentialsFile();
                                 }
 
-                                StartScreen sc = new StartScreen();
 
                                 cm.saveCredentialsToFile(tb_email.getText(), RequestManager.getUserSessionHash(tb_email.getText()));
+
+
+                                StartScreen sc = new StartScreen();
                                 frame.setVisible(false);
                                 im.loadApplicationIcon(sc);
                                 sc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
