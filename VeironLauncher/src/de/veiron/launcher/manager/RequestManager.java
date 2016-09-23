@@ -19,7 +19,7 @@ public class RequestManager {
 
         try {
 
-            String url = "https://veiron.tomtx.xyz/rest/set/UserSessionHash.php";
+            String url = "https://veiron.tomtx.xyz/api/set/UserSessionHash.php";
             String charset = "UTF-8";
 
             String query = String.format("email=%s",
@@ -42,10 +42,8 @@ public class RequestManager {
 
             while ((line = reader.readLine()) != null) {
                 out.append(line);
-                System.out.println("geht");
             }
 
-            System.out.println(out.toString());
             reader.close();
 
             JSONArray jsonArray = (JSONArray) parser.parse(out.toString());
@@ -53,7 +51,6 @@ public class RequestManager {
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
 
             string = jsonObject.get("sessionId").toString();
-            System.out.println("setUserSessionHash:" + string);
             return string;
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,7 +65,7 @@ public class RequestManager {
         JSONParser parser = new JSONParser();
 
         try {
-            String url = "https://veiron.tomtx.xyz/rest/get/getUserSessionHash.php";
+            String url = "https://veiron.tomtx.xyz/api/get/UserSessionHash.php";
             String charset = "UTF-8";
 
             String query = String.format("email=%s",
@@ -92,7 +89,6 @@ public class RequestManager {
                 out.append(line);
             }
 
-            System.out.println(out.toString());
             reader.close();
 
             JSONArray jsonArray = (JSONArray) parser.parse(out.toString());
@@ -100,8 +96,6 @@ public class RequestManager {
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
 
             string = jsonObject.get("sessionId").toString();
-
-            System.out.println("getUserSessionHash:" + string);
             return string;
         }
         catch(Exception e){
@@ -117,7 +111,7 @@ public class RequestManager {
         JSONParser parser = new JSONParser();
 
         try {
-            String url = "https://veiron.tomtx.xyz/rest/get/UserIngameName.php";
+            String url = "https://veiron.tomtx.xyz/api/get/UserIngameName.php";
             String charset = "UTF-8";
 
             String query = String.format("email=%s",
@@ -141,7 +135,7 @@ public class RequestManager {
                 out.append(line);
             }
 
-            System.out.println(out.toString());
+
             reader.close();
 
             JSONArray jsonArray = (JSONArray) parser.parse(out.toString());
@@ -165,7 +159,7 @@ public class RequestManager {
         JSONParser parser = new JSONParser();
 
         try {
-            String url = "https://veiron.tomtx.xyz/rest/get/hasUserPaid.php";
+            String url = "https://veiron.tomtx.xyz/api/get/UserPaidState.php";
             String charset = "UTF-8";
 
             String query = String.format("email=%s",
@@ -196,8 +190,6 @@ public class RequestManager {
 
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
 
-            System.out.println(jsonObject.get("boughtGame"));
-
             accepted = (jsonObject.get("boughtGame").equals("true"));
 
         }
@@ -213,7 +205,7 @@ public class RequestManager {
         JSONParser parser = new JSONParser();
 
         try {
-            String url = "https://veiron.tomtx.xyz/rest/get/hasUserRegistered.php";
+            String url = "https://veiron.tomtx.xyz/api/get/UserRegisterState.php";
             String charset = "UTF-8";
 
             String query = String.format("email=%s&password=%s",
@@ -238,7 +230,6 @@ public class RequestManager {
                 out.append(line);
             }
 
-            System.out.println(out.toString());
             reader.close();
 
             JSONArray jsonArray = (JSONArray) parser.parse(out.toString());

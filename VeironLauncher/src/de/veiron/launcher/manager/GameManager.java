@@ -32,7 +32,7 @@ public class GameManager {
 
     public void downloadGameData() {
 
-        String fileUrl = "https://veiron.tomtx.xyz/game/assets/veiron.jar";
+        String fileUrl = "https://veiron.tomtx.xyz/assets/game/veiron_latest.jar";
 
         if (lauchner.systemManager.systemIsWindows()) {
             try {

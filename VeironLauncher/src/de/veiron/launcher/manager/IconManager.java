@@ -46,7 +46,7 @@ public class IconManager {
 
     public void downloadApplicationIcon() {
 
-        String fileUrl = "https://veiron.tomtx.xyz/launcher/assets/applicationIcon.png";
+        String fileUrl = "https://veiron.tomtx.xyz/assets/launcher/IconJavaLauncher.png";
 
         DownloadManager dm = new DownloadManager();
 

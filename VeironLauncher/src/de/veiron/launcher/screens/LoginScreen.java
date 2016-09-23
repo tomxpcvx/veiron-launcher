@@ -48,7 +48,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         browser.setEditable(false);
 
         try {
-            browser.setPage("https://veiron.tomtx.xyz/launcher/changelog");
+            browser.setPage("https://veiron.tomtx.xyz/assets/launcher/changelog.html");
         } catch (IOException e) {
             browser.setContentType("text/html");
             browser.setText("<html>Could not load.<br>Please check your internet connection!<br><br>Try to restart the launcher.</html>");
@@ -111,16 +111,16 @@ public class LoginScreen extends JFrame implements ActionListener {
                                 sc.setVisible(true);
 
                             } else {
-                                um.changeJLabelMessage(l_alert, "Du musst das Spiel erwerben!", 80, 555, 350, 20);
+                                um.changeJLabelMessage(l_alert, "Du musst das Spiel erwerben!", 80, 460, 350, 20);
                             }
                         } else {
-                            um.changeJLabelMessage(l_alert, "Überprüfe bitte deine Eingaben!", 80, 555, 350, 20);
+                            um.changeJLabelMessage(l_alert, "Überprüfe bitte deine Eingaben!", 80, 460, 350, 20);
                         }
                     } else {
-                        um.changeJLabelMessage(l_alert, "Du musst ein Passwort angeben!", 80, 555, 350, 20);
+                        um.changeJLabelMessage(l_alert, "Du musst ein Passwort angeben!", 80, 460, 350, 20);
                     }
                 } else {
-                    um.changeJLabelMessage(l_alert, "Diese E-Mail ist nicht gültig!", 95, 555, 350, 20);
+                    um.changeJLabelMessage(l_alert, "Diese E-Mail ist nicht gültig!", 95, 460, 350, 20);
                 }
             }
         });
