@@ -2,7 +2,7 @@
 
 Launcher for the veiron game.
 
-**This source code is already some years old and absolutely badly programmed underground.**
+**This source code is already some years old and absolutely badly programmed.**
 
 ## Useful Links
 * **Downloads** - <https://github.com/tomxpcvx/veiron-launcher/releases>
