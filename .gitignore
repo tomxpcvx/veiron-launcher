@@ -1,1 +1,3 @@
-/VeironLauncher/nbproject/private/
+.idea/
+*.iml
+target/
